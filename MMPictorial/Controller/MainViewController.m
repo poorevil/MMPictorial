@@ -89,7 +89,7 @@
     [self.adInterface getADList];
     
     
-    self.navigationItem.title = @"宝贝画报HD";
+    self.navigationItem.title = @"潮流服饰精选";
     
     self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bg.gif"]];
     

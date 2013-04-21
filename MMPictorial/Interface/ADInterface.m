@@ -17,7 +17,7 @@
 
 -(void)getADList
 {
-    self.interfaceUrl = [NSString stringWithFormat:@"http://pic.taoxiaoxian.com/interface/ad?appid=4"];//宝贝画报HD appId=4
+    self.interfaceUrl = [NSString stringWithFormat:@"http://pic.taoxiaoxian.com/interface/ad?appid=1"];
     self.baseDelegate = self;
     
     [self connect];

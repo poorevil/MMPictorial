@@ -34,7 +34,7 @@
 #define DEVICETOKENREGISTEREDKEY @"isDeviceTokenRegistered"
 
 //友盟app key
-#define YOUMENG_APP_KEY @"5156b1ea56240bb71d0137e5"
+#define YOUMENG_APP_KEY @"5173576e56240b145301be9b"
 
 //微信app id
 #define WEIXIN_APP_ID @"wx161de154679af00d"
@@ -47,9 +47,9 @@
 #define kWBKeyAppSecret                 @"a517807ec1b5a884f0f857e67132f8be"
 
 //分享短语
-#define WEIBO_SHARE_CONTENT             @"#桃小仙# 《男装折扣精选》天天有特价，每日皆精品！AppStore下载地址:https://itunes.apple.com/us/app/nan-zhuang-zhe-kou-jing-xuan/id582589074?ls=1&mt=8"
+#define WEIBO_SHARE_CONTENT             @""
 
 
 //本应用程序的APPStore下载地址
-#define APPIDURL        @"http://itunes.apple.com/lookup?id=628852045"
-#define APPURL          @"https://itunes.apple.com/cn/app/bao-bei-hua-baohd-shi-shang/id628852045?mt=8"
+#define APPIDURL        @""
+#define APPURL          @""

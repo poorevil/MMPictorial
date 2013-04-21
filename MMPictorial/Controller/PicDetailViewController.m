@@ -107,7 +107,7 @@
                          objectAtIndex:self.navigationController.viewControllers.count-2] navigationItem] title];
     
     //返回
-    UIBarButtonItem *backBtn = [PicDetailViewController createSquareBarButtonItemWithTitle:parentTitle==nil?@"宝贝画报HD":parentTitle
+    UIBarButtonItem *backBtn = [PicDetailViewController createSquareBarButtonItemWithTitle:parentTitle==nil?@"潮流服饰精选":parentTitle
                                                                                     target:self
                                                                                     action:@selector(backAction)
                                                                                  bgImgName:@"back_btn_bg.png"
@@ -115,7 +115,7 @@
     self.navigationItem.leftBarButtonItem = backBtn;
     
     //返回首页
-    UIBarButtonItem *homeBtn = [PicDetailViewController createSquareBarButtonItemWithTitle:@"宝贝画报HD"
+    UIBarButtonItem *homeBtn = [PicDetailViewController createSquareBarButtonItemWithTitle:@"潮流服饰精选"
                                                                                     target:self
                                                                                     action:@selector(homeAction)
                                                                                  bgImgName:@"home_btn_bg.png"
@@ -301,7 +301,7 @@
                 [col release];
             }else{
                 MBProgressHUD *hud = [[[MBProgressHUD alloc] initWithView:self.view] autorelease];
-                hud.labelText = @"孩儿他妈，已经到最后一页啦！";
+                hud.labelText = @"亲，已经到最后一页啦！";
                 
                 hud.customView = [[[UIView alloc] init] autorelease];
                 hud.mode = MBProgressHUDModeCustomView;
@@ -356,7 +356,7 @@
                 [col release];
             }else{
                 MBProgressHUD *hud = [[[MBProgressHUD alloc] initWithView:self.view] autorelease];
-                hud.labelText = @"孩儿他妈，已经是第一页啦！";
+                hud.labelText = @"亲，已经是第一页啦！";
                 
                 hud.customView = [[[UIView alloc] init] autorelease];
                 hud.mode = MBProgressHUDModeCustomView;

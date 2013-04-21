@@ -100,7 +100,7 @@
                        objectAtIndex:self.navigationController.viewControllers.count-2] navigationItem] title];
     
     //返回
-    UIBarButtonItem *backBtn = [WaterflowViewController createSquareBarButtonItemWithTitle:parentTitle==nil?@"宝贝画报HD":parentTitle
+    UIBarButtonItem *backBtn = [WaterflowViewController createSquareBarButtonItemWithTitle:parentTitle==nil?@"潮流服饰精选":parentTitle
                                                                                     target:self
                                                                                     action:@selector(backAction)
                                                                                  bgImgName:@"back_btn_bg.png"
@@ -108,7 +108,7 @@
     self.navigationItem.leftBarButtonItem = backBtn;
     
     //返回首页
-    UIBarButtonItem *homeBtn = [WaterflowViewController createSquareBarButtonItemWithTitle:@"宝贝画报HD"
+    UIBarButtonItem *homeBtn = [WaterflowViewController createSquareBarButtonItemWithTitle:@"潮流服饰精选"
                                                                                     target:self
                                                                                     action:@selector(homeAction)
                                                                                  bgImgName:@"home_btn_bg.png"
