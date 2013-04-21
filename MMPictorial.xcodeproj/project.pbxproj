@@ -145,6 +145,13 @@
 		4E98AEC21723033200CE553B /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E98AEC11723033200CE553B /* QuartzCore.framework */; };
 		4E98AEC41723033900CE553B /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E98AEC31723033900CE553B /* CFNetwork.framework */; };
 		4E98AEC61723034100CE553B /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E98AEC51723034100CE553B /* Security.framework */; };
+		4E98AED61723A60300CE553B /* icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E98AECF1723A60200CE553B /* icon-72.png */; };
+		4E98AED71723A60300CE553B /* icon-Small-50.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E98AED01723A60200CE553B /* icon-Small-50.png */; };
+		4E98AED81723A60300CE553B /* icon-Small.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E98AED11723A60200CE553B /* icon-Small.png */; };
+		4E98AED91723A60300CE553B /* icon-Small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E98AED21723A60200CE553B /* icon-Small@2x.png */; };
+		4E98AEDA1723A60300CE553B /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E98AED31723A60300CE553B /* icon.png */; };
+		4E98AEDB1723A60300CE553B /* icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E98AED41723A60300CE553B /* icon@2x.png */; };
+		4E98AEDC1723A60300CE553B /* iTunesArtwork in Resources */ = {isa = PBXBuildFile; fileRef = 4E98AED51723A60300CE553B /* iTunesArtwork */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -378,6 +385,13 @@
 		4E98AEC11723033200CE553B /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		4E98AEC31723033900CE553B /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		4E98AEC51723034100CE553B /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		4E98AECF1723A60200CE553B /* icon-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-72.png"; sourceTree = "<group>"; };
+		4E98AED01723A60200CE553B /* icon-Small-50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-Small-50.png"; sourceTree = "<group>"; };
+		4E98AED11723A60200CE553B /* icon-Small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-Small.png"; sourceTree = "<group>"; };
+		4E98AED21723A60200CE553B /* icon-Small@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-Small@2x.png"; sourceTree = "<group>"; };
+		4E98AED31723A60300CE553B /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
+		4E98AED41723A60300CE553B /* icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon@2x.png"; sourceTree = "<group>"; };
+		4E98AED51723A60300CE553B /* iTunesArtwork */ = {isa = PBXFileReference; lastKnownFileType = file; path = iTunesArtwork; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -536,6 +550,13 @@
 		4E98AD67172301D400CE553B /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				4E98AECF1723A60200CE553B /* icon-72.png */,
+				4E98AED01723A60200CE553B /* icon-Small-50.png */,
+				4E98AED11723A60200CE553B /* icon-Small.png */,
+				4E98AED21723A60200CE553B /* icon-Small@2x.png */,
+				4E98AED31723A60300CE553B /* icon.png */,
+				4E98AED41723A60300CE553B /* icon@2x.png */,
+				4E98AED51723A60300CE553B /* iTunesArtwork */,
 				4E98AD68172301D400CE553B /* ad1.png */,
 				4E98AD69172301D400CE553B /* ad2.png */,
 				4E98AD6A172301D400CE553B /* ad3.png */,
@@ -1008,6 +1029,13 @@
 				4E98AEB2172301D500CE553B /* PicWaterflowTileView.xib in Resources */,
 				4E98AEB4172301D500CE553B /* RecommendAlbumsView.xib in Resources */,
 				4E98AEB6172301D500CE553B /* RecommendAlbumView.xib in Resources */,
+				4E98AED61723A60300CE553B /* icon-72.png in Resources */,
+				4E98AED71723A60300CE553B /* icon-Small-50.png in Resources */,
+				4E98AED81723A60300CE553B /* icon-Small.png in Resources */,
+				4E98AED91723A60300CE553B /* icon-Small@2x.png in Resources */,
+				4E98AEDA1723A60300CE553B /* icon.png in Resources */,
+				4E98AEDB1723A60300CE553B /* icon@2x.png in Resources */,
+				4E98AEDC1723A60300CE553B /* iTunesArtwork in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1177,6 +1205,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MMPictorial/MMPictorial-Prefix.pch";
 				INFOPLIST_FILE = "MMPictorial/MMPictorial-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/MMPictorial/umeng\"",
@@ -1193,6 +1222,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MMPictorial/MMPictorial-Prefix.pch";
 				INFOPLIST_FILE = "MMPictorial/MMPictorial-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/MMPictorial/umeng\"",

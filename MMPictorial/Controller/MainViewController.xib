@@ -39,23 +39,6 @@
 						<reference key="NSNextResponder" ref="766721923"/>
 						<int key="NSvFlags">268</int>
 						<array class="NSMutableArray" key="NSSubviews">
-							<object class="IBUIView" id="460373466">
-								<reference key="NSNextResponder" ref="385137279"/>
-								<int key="NSvFlags">292</int>
-								<string key="NSFrameSize">{1024, 360}</string>
-								<reference key="NSSuperview" ref="385137279"/>
-								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView" ref="525474494"/>
-								<string key="NSReuseIdentifierKey">_NS:9</string>
-								<object class="NSColor" key="IBUIBackgroundColor">
-									<int key="NSColorSpace">3</int>
-									<bytes key="NSWhite">MQA</bytes>
-									<object class="NSColorSpace" key="NSCustomColorSpace">
-										<int key="NSID">2</int>
-									</object>
-								</object>
-								<string key="targetRuntimeIdentifier">IBIPadFramework</string>
-							</object>
 							<object class="IBUIScrollView" id="525474494">
 								<reference key="NSNextResponder" ref="385137279"/>
 								<int key="NSvFlags">268</int>
@@ -73,7 +56,7 @@
 						<string key="NSFrameSize">{1024, 748}</string>
 						<reference key="NSSuperview" ref="766721923"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="460373466"/>
+						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<object class="NSColor" key="IBUIBackgroundColor">
 							<int key="NSColorSpace">3</int>
@@ -181,18 +164,12 @@
 						<reference key="object" ref="385137279"/>
 						<array class="NSMutableArray" key="children">
 							<reference ref="525474494"/>
-							<reference ref="460373466"/>
 						</array>
 						<reference key="parent" ref="766721923"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">132</int>
 						<reference key="object" ref="525474494"/>
-						<reference key="parent" ref="385137279"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">136</int>
-						<reference key="object" ref="460373466"/>
 						<reference key="parent" ref="385137279"/>
 					</object>
 				</array>
@@ -204,8 +181,6 @@
 				<string key="-2.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="129.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="132.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-				<string key="136.CustomClassName">CycleScrollView</string>
-				<string key="136.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="2.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 			</dictionary>
 			<dictionary class="NSMutableDictionary" key="unlocalizedProperties"/>
@@ -217,26 +192,13 @@
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
 				<object class="IBPartialClassDescription">
-					<string key="className">CycleScrollView</string>
-					<string key="superclassName">UIView</string>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">./Classes/CycleScrollView.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
 					<string key="className">MainViewController</string>
 					<string key="superclassName">UIViewController</string>
 					<dictionary class="NSMutableDictionary" key="outlets">
-						<string key="cycleScrollView">CycleScrollView</string>
 						<string key="detailsScrollView">UIScrollView</string>
 						<string key="mScrollView">UIScrollView</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
-						<object class="IBToOneOutletInfo" key="cycleScrollView">
-							<string key="name">cycleScrollView</string>
-							<string key="candidateClassName">CycleScrollView</string>
-						</object>
 						<object class="IBToOneOutletInfo" key="detailsScrollView">
 							<string key="name">detailsScrollView</string>
 							<string key="candidateClassName">UIScrollView</string>

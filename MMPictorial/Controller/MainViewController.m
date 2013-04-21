@@ -416,6 +416,7 @@
         imageView.tag = idx;
         
         imageView.contentMode = UIViewContentModeScaleAspectFill;
+        imageView.clipsToBounds = YES;
         imageView.imageURL = [NSURL URLWithString:ad.picUrl];
         imageView.userInteractionEnabled = YES;
         
