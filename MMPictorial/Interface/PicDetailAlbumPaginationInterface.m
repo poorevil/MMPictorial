@@ -1,26 +1,26 @@
 //
-//  PicWaterflowInterface.m
-//  BabyPictorial
+//  PicDetailAlbumPaginationInterface.m
+//  MMPictorial
 //
-//  Created by han chao on 13-3-26.
+//  Created by han chao on 13-4-22.
 //  Copyright (c) 2013年 taoxiaoxian. All rights reserved.
 //
 
-#import "PicWaterflowInterface.h"
+#import "PicDetailAlbumPaginationInterface.h"
 
 #import "JSONKit.h"
 
 #import "PicDetailModel.h"
 
-@implementation PicWaterflowInterface
+@implementation PicDetailAlbumPaginationInterface
 
--(void)getPicWaterflowByPageNum:(NSInteger)pageNum andAlbumId:(NSString *)albumId
+-(void)getPicDetailAlbumByPageNum:(NSInteger)pageNum andAlbumId:(NSString *)albumId
 {
-    NSString *url = [NSString stringWithFormat:@"http://vps.taoxiaoxian.com/interface/picwaterflow?p=%d&cid=1",pageNum];
+    _pageNum = pageNum;
     
-    if (albumId) {
-        url = [NSString stringWithFormat:@"%@&albumId=%@",url,albumId];
-    }
+    NSString *url =
+    [NSString stringWithFormat:@"http://vps.taoxiaoxian.com/interface/picdetail_album_pagination?p=%d&cid=1&albumId=%@"
+                     ,pageNum,albumId];
     
     self.interfaceUrl = url;
     self.baseDelegate = self;
@@ -59,7 +59,7 @@
             NSMutableArray *resultArray = [NSMutableArray array];
             
             for (NSDictionary *picDict in jsonObj) {
-            
+                
                 PicDetailModel *pdm = [[[PicDetailModel alloc] init] autorelease];
                 
                 pdm.albumId = [picDict objectForKey:@"albunm_id"];
@@ -78,20 +78,22 @@
                 pdm.taokeNumiid = [picDict objectForKey:@"taoke_num_iid"];
                 
                 [resultArray addObject:pdm];
+                
+            }
             
-            }            
-            
-            [self.delegate getPicWaterflowByPageNumDidFinished:resultArray];
+            [self.delegate getPicDetailAlbumByPageNumDidFinished:resultArray pageNum:_pageNum];
             
         }
         @catch (NSException *exception) {
-            [self.delegate getPicWaterflowByPageNumDidFailed:@"获取失败"];
+            [self.delegate getPicDetailAlbumByPageNumDidFailed:@"获取失败"
+                                                       pageNum:_pageNum];
         }
     }
 }
 
 -(void)requestIsFailed:(NSError *)error{
-    [self.delegate getPicWaterflowByPageNumDidFailed:[NSString stringWithFormat:@"获取失败！(%@)",error]];
+    [self.delegate getPicDetailAlbumByPageNumDidFailed:[NSString stringWithFormat:@"获取失败！(%@)",error]
+                                               pageNum:_pageNum];
 }
 
 -(void)dealloc

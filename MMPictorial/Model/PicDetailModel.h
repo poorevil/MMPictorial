@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@class AlbumModel;
+@class AlbumModel,PaginationModel;
 
 @interface PicDetailModel : NSObject
 
@@ -33,5 +33,7 @@
 @property (nonatomic,retain) NSMutableArray *recommendAlbumArray;
 
 @property (nonatomic,retain) NSString *taokeUrl;
+
+@property (nonatomic,retain) PaginationModel *paginationModel;
 
 @end

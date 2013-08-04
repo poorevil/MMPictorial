@@ -15,7 +15,7 @@
 #import "PicDetailModel.h"
 #import "AlbumModel.h"
 
-#import "AlbumView.h"
+#import "PicDetailAlbumView.h"
 
 #import "RecommendAlbumView.h"
 
@@ -31,11 +31,28 @@
 
 #import "MBProgressHUD.h"
 
-@interface PicDetailViewController ()
+#import "PaginationModel.h"
+
+#import "PicDetailAlbumPaginationInterface.h"
+
+@interface PicDetailViewController (){
+    NSInteger _totalPageAmount;
+    NSInteger _currentPageNo;
+    NSInteger _pageSize;
+    NSInteger _totalPicSize;//图集中图片总数量
+    
+    
+    NSInteger _currentPicIdxInAlbumArray;//当前图片在图集中的索引
+}
+
+//当前图集分页信息。key:NSNumber,页数   value:NSArray,列表
+@property (nonatomic,retain) NSMutableDictionary *albumPaginationDict;
 
 @property (nonatomic,retain) PicDetailInterface *interface;
 
 @property (nonatomic,retain) TaokeItemDetailInterface *taokeItemDetailInterface;
+
+@property (nonatomic,retain) PicDetailAlbumPaginationInterface *picDetailAlbumPaginationInterface;
 
 @end
 
@@ -91,6 +108,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
+    self.albumPaginationDict = [NSMutableDictionary dictionary];
+    
     self.descriptionLabel.text = self.picDescTitle;
     
     self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bg.gif"]];
@@ -127,8 +146,7 @@
     
     self.mScrollView.contentSize = self.view.frame.size;
     
-    
-    self.picContainer.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"img_bg_2.png"]];
+    self.picScrollView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"img_bg_2.png"]];
     
     
     self.detailContainer.layer.borderColor = [UIColor colorWithWhite:1 alpha:0.85].CGColor;
@@ -137,34 +155,26 @@
     self.rightContainer.layer.borderWidth = 1;
     
     
-    EGOImageView *tmpImg = [[[EGOImageView alloc] init] autorelease];
-    tmpImg.imageURL = self.smallPicUrl;
-    
-//    self.smallPicUrl = nil;
-    
-    self.imageView.placeholderImage = tmpImg.image;
-    self.imageView.imageURL = [NSURL URLWithString:[[self.smallPicUrl absoluteString]
-                                                    stringByReplacingOccurrencesOfString:@"_100x100.jpg"
-                                                                              withString:@""]];
-    
-    if (self.imageView.image)
-        [self imageViewLoadedImage:self.imageView];
+    //默认图，先挡挡 :P
+    //TODO:考虑用透明渐变或其他方式过度
+    self.imageView.imageURL = self.smallPicUrl;
+    self.imageView.contentMode = UIViewContentModeScaleAspectFit;
     
 }
 
 -(void)setShadow
 {
     //self.picContainer.superview 阴影
-    self.picContainer.superview.layer.shadowColor = [UIColor blackColor].CGColor;
-    self.picContainer.superview.layer.shadowOpacity = 0.2;
+    self.picScrollView.superview.layer.shadowColor = [UIColor blackColor].CGColor;
+    self.picScrollView.superview.layer.shadowOpacity = 0.2;
     
     // shadow
     UIBezierPath *path = [UIBezierPath bezierPath];
     
     CGPoint topLeft      = CGPointMake(0.0, 6.0);
-    CGPoint bottomLeft   = CGPointMake(0.0, CGRectGetHeight(self.picContainer.superview.bounds)+3);
-    CGPoint bottomRight  = CGPointMake(CGRectGetWidth(self.picContainer.superview.bounds)+2, CGRectGetHeight(self.picContainer.superview.bounds)+3);
-    CGPoint topRight     = CGPointMake(CGRectGetWidth(self.picContainer.superview.bounds)+2, 3.0);
+    CGPoint bottomLeft   = CGPointMake(0.0, CGRectGetHeight(self.picScrollView.superview.bounds)+3);
+    CGPoint bottomRight  = CGPointMake(CGRectGetWidth(self.picScrollView.superview.bounds)+2, CGRectGetHeight(self.picScrollView.superview.bounds)+3);
+    CGPoint topRight     = CGPointMake(CGRectGetWidth(self.picScrollView.superview.bounds)+2, 3.0);
     
     [path moveToPoint:topLeft];
     [path addLineToPoint:bottomLeft];
@@ -173,7 +183,7 @@
     [path addLineToPoint:topLeft];
     [path closePath];
     
-    self.picContainer.superview.layer.shadowPath = path.CGPath;
+    self.picScrollView.superview.layer.shadowPath = path.CGPath;
     
     //self.detailContainer 阴影
     self.detailContainer.layer.shadowColor = [UIColor blackColor].CGColor;
@@ -232,7 +242,9 @@
     self.pid = nil;
     
     self.detailContainer = nil;
-    self.picContainer = nil;
+//    self.picContainer = nil;
+    
+    self.picScrollView = nil;
     
     self.interface.delegate = nil;
     self.interface = nil;
@@ -248,146 +260,10 @@
     
     self.pdm = nil;
     
+    self.picDetailAlbumPaginationInterface.delegate = nil;
+    self.picDetailAlbumPaginationInterface = nil;
+    
     [super dealloc];
-}
-
-#pragma mark - Gesture 
--(void)initGesture
-{
-    UISwipeGestureRecognizer *swipe = [[UISwipeGestureRecognizer alloc] initWithTarget:self
-                                                                                action:@selector(swipeGestureAction:)];
-    
-    self.rightContainer.userInteractionEnabled = YES;
-    [self.rightContainer addGestureRecognizer:swipe];
-    [swipe release];
-    
-    swipe = [[UISwipeGestureRecognizer alloc] initWithTarget:self
-                                                                                action:@selector(swipeGestureAction:)];
-    
-    swipe.direction = UISwipeGestureRecognizerDirectionLeft;
-    self.rightContainer.userInteractionEnabled = YES;
-    [self.rightContainer addGestureRecognizer:swipe];
-    [swipe release];
-}
-
--(void)swipeGestureAction:(UISwipeGestureRecognizer *)gesture
-{
-    NSInteger currentIdx = 0;//当前位置
-    
-    for (NSInteger idx = 0 ; idx < self.pdm.ownerAlbum.picArray.count; idx++) {
-        
-        PicDetailModel *pdmTmp = [self.pdm.ownerAlbum.picArray objectAtIndex:idx];
-        if ([self.pdm.pid isEqualToString:pdmTmp.pid]) {
-            currentIdx = idx;
-        }
-    }
-    
-    switch (gesture.direction) {
-        case UISwipeGestureRecognizerDirectionLeft://向左
-            
-            if (currentIdx < self.pdm.ownerAlbum.picArray.count - 1) {
-                
-                PicDetailViewController *col = [[PicDetailViewController alloc] initWithNibName:@"PicDetailViewController"
-                                                                                         bundle:nil];
-                
-                PicDetailModel *pdmTmp = [self.pdm.ownerAlbum.picArray objectAtIndex:currentIdx+1];
-                
-                col.picDescTitle = pdmTmp.descTitle;
-                col.navTitle = self.pdm.ownerAlbum.albumName;
-                col.pid = pdmTmp.pid;
-                col.smallPicUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@_100x100.jpg",pdmTmp.picUrl]];
-                
-                [self.navigationController pushViewController:col animated:YES];
-                [col release];
-            }else{
-                MBProgressHUD *hud = [[[MBProgressHUD alloc] initWithView:self.view] autorelease];
-                hud.labelText = @"亲，已经到最后一页啦！";
-                
-                hud.customView = [[[UIView alloc] init] autorelease];
-                hud.mode = MBProgressHUDModeCustomView;
-                
-                [self.view addSubview:hud];
-                [self.view bringSubviewToFront:hud];
-                
-                [hud show:NO];
-                
-                Boolean showFlag = YES;
-                NSTimeInterval begin = [[NSDate date] timeIntervalSince1970];
-                
-                while (showFlag) {
-                    
-                    if ([[NSDate date] timeIntervalSince1970] - begin > 1.5) {
-                        showFlag = NO;
-                    }
-                    
-                    [[NSRunLoop currentRunLoop] runUntilDate:[NSDate distantPast]];
-                }
-                [hud hide:YES];
-                
-                [hud removeFromSuperview];
-            }
-            
-            
-            break;
-        case UISwipeGestureRecognizerDirectionRight://向右
-            
-            if (currentIdx >0) {
-                
-                PicDetailViewController *col = [[PicDetailViewController alloc] initWithNibName:@"PicDetailViewController"
-                                                                                         bundle:nil];
-                
-                PicDetailModel *pdmTmp = [self.pdm.ownerAlbum.picArray objectAtIndex:currentIdx-1];
-                
-                col.picDescTitle = pdmTmp.descTitle;
-                col.navTitle = self.pdm.ownerAlbum.albumName;
-                col.pid = pdmTmp.pid;
-                col.smallPicUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@_100x100.jpg",pdmTmp.picUrl]];
-                
-                CATransition* transition = [CATransition animation];
-                transition.duration = 0.3;
-                transition.type = kCATransitionPush;
-                transition.subtype = kCATransitionFromTop;
-                
-                [self.navigationController.view.layer
-                 addAnimation:transition forKey:kCATransition];
-                
-                [self.navigationController pushViewController:col animated:NO];
-                
-                [col release];
-            }else{
-                MBProgressHUD *hud = [[[MBProgressHUD alloc] initWithView:self.view] autorelease];
-                hud.labelText = @"亲，已经是第一页啦！";
-                
-                hud.customView = [[[UIView alloc] init] autorelease];
-                hud.mode = MBProgressHUDModeCustomView;
-                
-                [self.view addSubview:hud];
-                [self.view bringSubviewToFront:hud];
-                
-                [hud show:NO];
-                
-                Boolean showFlag = YES;
-                NSTimeInterval begin = [[NSDate date] timeIntervalSince1970];
-                
-                while (showFlag) {
-                    
-                    if ([[NSDate date] timeIntervalSince1970] - begin > 1.5) {
-                        showFlag = NO;
-                    }
-                    
-                    [[NSRunLoop currentRunLoop] runUntilDate:[NSDate distantPast]];
-                }
-                [hud hide:YES];
-                
-                [hud removeFromSuperview];
-            }
-            
-            
-            break;
-            
-        default:
-            break;
-    }
 }
 
 
@@ -395,16 +271,88 @@
 
 -(void)getPicDetailDidFinished:(PicDetailModel *)pdm
 {
-    self.imageView.delegate = self;
-    self.imageView.imageURL = [NSURL URLWithString:pdm.picUrl];
     
     self.pdm = pdm;
+    
+    /*
+     * 处理分页信息
+     */
+    PaginationModel *pagination = pdm.paginationModel;
+    
+    _currentPageNo = pagination.currentPageNo;
+    _totalPageAmount = pagination.pageAmount;
+    _pageSize = pagination.pageSize;
+    _totalPicSize = pagination.totalPicSize;
+    
+    [self.albumPaginationDict setObject:pagination.currentPagePicDetailArray
+                                 forKey:[NSNumber numberWithInt:_currentPageNo]];
+    
+//    if (pagination.nextPagePicDetailArray.count > 0) {
+//        [self.albumPaginationDict setObject:pagination.nextPagePicDetailArray
+//                                     forKey:[NSNumber numberWithInt:_currentPageNo+1]];
+//    }
+//    
+//    if (pagination.previousPagePicDetailArray.count > 0) {
+//        [self.albumPaginationDict setObject:pagination.previousPagePicDetailArray
+//                                     forKey:[NSNumber numberWithInt:_currentPageNo-1]];
+//    }
+    
+    //处理picScrollView
+    self.picScrollView.contentSize = CGSizeMake(self.picScrollView.frame.size.width * _totalPicSize
+                                                , self.picScrollView.frame.size.height);
+    
+    
+    NSArray *currentArray = [self.albumPaginationDict objectForKey:[NSNumber numberWithInt:_currentPageNo]];
+    for (NSInteger idx =0; idx < currentArray.count; idx++) {
+        
+        EGOImageView *imageView = [[[EGOImageView alloc] initWithFrame:CGRectMake((_currentPageNo*_pageSize+idx)*self.picScrollView.frame.size.width+20
+                                                                                  , 20
+                                                                                  , self.picScrollView.frame.size.width-40
+                                                                                  , self.picScrollView.frame.size.height-40)]
+                                   autorelease];
+        imageView.tag = 99+_currentPageNo*_pageSize + idx;
+        imageView.contentMode = UIViewContentModeScaleAspectFit;
+        
+        [self.picScrollView addSubview:imageView];
+    }
+        
+    //当前图片的索引
+    NSInteger currentPicIdx =  0;
+    
+    NSArray *currPicArray = [self.albumPaginationDict objectForKey:[NSNumber numberWithInt:_currentPageNo]];
+    for (NSInteger idx = 0; idx < currPicArray.count; idx++) {
+        PicDetailModel *pdmTmp = [currPicArray objectAtIndex:idx];
+        
+        if ([self.pdm.pid isEqualToString:pdmTmp.pid]) {
+            currentPicIdx = idx;
+            break;
+        }
+    }
+    
+    for (NSInteger i =0; i<3; i++) {
+        
+        if ((currentPicIdx-1+i) >= 0 && (currentPicIdx-1+i) < currPicArray.count) {
+            EGOImageView *image = (EGOImageView *)[self.picScrollView
+                                                   viewWithTag:99+(currentPicIdx-1+i)];
+            image.imageURL = [NSURL URLWithString:[[currPicArray objectAtIndex:(currentPicIdx-1+i)] picUrl]];
+        }
+        
+    }
+    
+    self.picScrollView.contentOffset = CGPointMake(self.picScrollView.frame.size.width
+                                                   * (_currentPageNo * _pageSize+currentPicIdx)
+                                                   , 0);
+    
+    [self.imageView.superview removeFromSuperview];
+    
+    
+    //====================
     
     
     self.descriptionLabel.text = pdm.descTitle;
     
     
-    AlbumView *albumView = [[[NSBundle mainBundle] loadNibNamed:@"AlbumView"
+    PicDetailAlbumView *albumView = [[[NSBundle mainBundle] loadNibNamed:@"PicDetailAlbumView"
                                                           owner:self
                                                         options:nil] objectAtIndex:0];
     
@@ -414,6 +362,7 @@
                                  , albumView.frame.size.height);
     
     albumView.albumModel = pdm.ownerAlbum;
+    albumView.picArray = pagination.currentPagePicDetailArray;
     [albumView setCurrentPicId:self.pdm.pid];
     
     [self.detailContainer addSubview:albumView];
@@ -470,8 +419,6 @@
     self.taokeItemDetailInterface.delegate = self;
     [self.taokeItemDetailInterface getTaokeItemDetailsByNumiid:self.pdm.taokeNumiid];
     
-    
-    [self initGesture];
 }
 
 -(void)getPicDetailDidFailed:(NSString *)errorMsg
@@ -491,56 +438,60 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-#pragma mark - EGOImageViewDelegate
-- (void)imageViewLoadedImage:(EGOImageView*)imageView
-{
-    UIView *parentView = imageView.superview;
-    
-    CGRect imageFrame = imageView.frame;
-
-    imageFrame.size.height = (CGFloat)imageFrame.size.width / (CGFloat)imageView.image.size.width  * imageView.image.size.height;
-    
-    
-    CGRect parentFrame = parentView.frame;
-    parentFrame.size.height += (imageFrame.size.height - imageView.frame.size.height);
-    parentView.frame = parentFrame;
-    
-    imageView.frame = imageFrame;
-    
-    CGRect frame = parentView.superview.frame;
-    frame.size.height = parentView.frame.size.height + parentView.frame.origin.y;
-    parentView.superview.frame = frame;
-    
-    [self setShadow];
-    
-    [self updateScrollViewContentSize];
-}
+//#pragma mark - EGOImageViewDelegate
+//- (void)imageViewLoadedImage:(EGOImageView*)imageView
+//{
+//    UIView *parentView = imageView.superview;
+//    
+//    CGRect imageFrame = imageView.frame;
+//
+//    imageFrame.size.height = (CGFloat)imageFrame.size.width / (CGFloat)imageView.image.size.width  * imageView.image.size.height;
+//    
+//    
+//    CGRect parentFrame = parentView.frame;
+//    parentFrame.size.height += (imageFrame.size.height - imageView.frame.size.height);
+//    parentView.frame = parentFrame;
+//    
+//    imageView.frame = imageFrame;
+//    
+//    CGRect frame = parentView.superview.frame;
+//    frame.size.height = parentView.frame.size.height + parentView.frame.origin.y;
+//    parentView.superview.frame = frame;
+//    
+//    [self setShadow];
+//    
+//    [self updateScrollViewContentSize];
+//}
 
 #pragma mark - TaokeItemDetailInterfaceDelegate
 -(void)getTaokeItemDetailsByNumiidDidFinished:(NSString *)url
 {
     self.pdm.taokeUrl = url;
     
-    PicDetailTaokeMsgView *ptmv = [[[NSBundle mainBundle] loadNibNamed:@"PicDetailTaokeMsgView"
-                                                                 owner:self
-                                                               options:nil] objectAtIndex:0];
+    PicDetailTaokeMsgView *ptmv = (PicDetailTaokeMsgView *)[self.mScrollView viewWithTag:99999];
     
-    CGRect ptmvFrame = ptmv.frame;
-    ptmvFrame.origin.x = self.rightContainer.frame.origin.x;
-    ptmvFrame.origin.y = self.rightContainer.frame.origin.y + self.rightContainer.frame.size.height + 10;
-    
+    if (!ptmv) {
+        ptmv = [[[NSBundle mainBundle] loadNibNamed:@"PicDetailTaokeMsgView"
+                                              owner:self
+                                            options:nil] objectAtIndex:0];
+        
+        ptmv.tag = 99999;
+        
+        CGRect ptmvFrame = ptmv.frame;
+        ptmvFrame.origin.x = self.rightContainer.frame.origin.x;
+        ptmvFrame.origin.y = self.rightContainer.frame.origin.y + self.rightContainer.frame.size.height + 10;
+        
+        ptmv.frame = ptmvFrame;
+        
+        [self.mScrollView addSubview:ptmv];
+        
+        [ptmv.buyBtn addTarget:self
+                        action:@selector(buyBtnAction:)
+              forControlEvents:UIControlEventTouchUpInside];
+    }
     
     ptmv.title.text = self.pdm.taokeTitle;
     ptmv.price.text = [NSString stringWithFormat:@"￥%@",self.pdm.taokePrice];
-    
-    [ptmv.buyBtn addTarget:self
-                    action:@selector(buyBtnAction:)
-          forControlEvents:UIControlEventTouchUpInside];
-    
-    
-    ptmv.frame = ptmvFrame;
-    
-    [self.mScrollView addSubview:ptmv];
     
     [self updateScrollViewContentSize];
 }
@@ -567,5 +518,105 @@
     [self.navigationController pushViewController:webViewController animated:YES];
     
 }
+
+
+#pragma mark - UIScrollViewDelegate
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    if (scrollView == self.mScrollView) {
+        return;
+    }
+    
+    CGFloat pageWidth = scrollView.frame.size.width;
+    int page = floor((scrollView.contentOffset.x - pageWidth / 2) / pageWidth) + 1;
+    
+    
+    if (page != _currentPicIdxInAlbumArray) {
+        _currentPicIdxInAlbumArray = page;
+        
+        EGOImageView *image = (EGOImageView *)[scrollView viewWithTag:99+_currentPicIdxInAlbumArray];
+        
+        if (!image){
+            
+            image = [[[EGOImageView alloc] initWithFrame:CGRectMake(_currentPicIdxInAlbumArray
+                                                                    *self.picScrollView.frame.size.width+20
+                                                                                      , 20
+                                                                                      , self.picScrollView.frame.size.width-40
+                                                                                      , self.picScrollView.frame.size.height-40)]
+                                       autorelease];
+            image.tag = 99+_currentPicIdxInAlbumArray;
+            image.contentMode = UIViewContentModeScaleAspectFit;
+            
+            [self.picScrollView addSubview:image];
+        }   
+        
+        NSArray *picArray = [self.albumPaginationDict objectForKey:[NSNumber numberWithInt:_currentPicIdxInAlbumArray/_pageSize]];
+        
+        if (!picArray) {
+            //TODO:通过网络获取对应页数据
+            
+            self.picDetailAlbumPaginationInterface = [[[PicDetailAlbumPaginationInterface alloc] init] autorelease];
+            self.picDetailAlbumPaginationInterface.delegate = self;
+            [self.picDetailAlbumPaginationInterface getPicDetailAlbumByPageNum:_currentPicIdxInAlbumArray/_pageSize
+                                                                    andAlbumId:self.pdm.albumId];
+        }
+        
+//        for (NSInteger i =0; i<3; i++) {
+        
+        //删除淘客信息
+        PicDetailTaokeMsgView *ptmv = (PicDetailTaokeMsgView *)[self.mScrollView viewWithTag:99999];
+        [ptmv removeFromSuperview];
+        
+        if (_currentPicIdxInAlbumArray % _pageSize < picArray.count) {
+            PicDetailModel *pdmTmp = [picArray objectAtIndex:_currentPicIdxInAlbumArray % _pageSize];
+            
+            pdmTmp.albumId = self.pdm.albumId;
+            pdmTmp.ownerAlbum = self.pdm.ownerAlbum;
+            pdmTmp.cateId = self.pdm.cateId;
+            pdmTmp.rootCateId = self.pdm.rootCateId;
+            
+            self.pdm = pdmTmp;
+            
+            self.descriptionLabel.text = self.pdm.descTitle;
+            
+            
+            image.imageURL = [NSURL URLWithString:pdmTmp.picUrl];
+            
+            
+            if ([self.pdm.taokeUrl hasPrefix:@"http"]) {
+                
+                [self getTaokeItemDetailsByNumiidDidFinished:self.pdm.taokeUrl];
+                
+            }else{
+            
+                self.taokeItemDetailInterface = [[[TaokeItemDetailInterface alloc] init] autorelease];
+                self.taokeItemDetailInterface.delegate = self;
+                [self.taokeItemDetailInterface getTaokeItemDetailsByNumiid:self.pdm.taokeNumiid];
+            }
+        }
+        
+//        }
+        
+        
+    }
+    
+}
+
+#pragma mark - PicDetailAlbumPaginationInterfaceDelegate
+-(void)getPicDetailAlbumByPageNumDidFinished:(NSArray *)array pageNum:(NSInteger)pageNum
+{
+    [self.albumPaginationDict setObject:array
+                                 forKey:[NSNumber numberWithInt:pageNum]];
+    
+    _currentPicIdxInAlbumArray = 0;
+    [self scrollViewDidScroll:self.picScrollView];
+}
+
+-(void)getPicDetailAlbumByPageNumDidFailed:(NSString *)errorMsg pageNum:(NSInteger)pageNum
+{
+    NSLog(@"---getPicDetailAlbumByPageNumDidFailed--%@",errorMsg);
+}
+
+
 
 @end

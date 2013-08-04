@@ -14,9 +14,10 @@
 @class PicDetailModel;
 
 @protocol TaokeItemDetailInterfaceDelegate;
+@protocol PicDetailAlbumPaginationInterfaceDelegate;
 
 @interface PicDetailViewController : UIViewController <PicDetailInterfaceDelegate
-,UIScrollViewDelegate,EGOImageViewDelegate,TaokeItemDetailInterfaceDelegate>
+,UIScrollViewDelegate,EGOImageViewDelegate,TaokeItemDetailInterfaceDelegate,PicDetailAlbumPaginationInterfaceDelegate>
 
 @property (nonatomic,retain) IBOutlet UIView *detailContainer;
 
@@ -24,7 +25,8 @@
 
 @property (nonatomic,retain) IBOutlet EGOImageView *imageView;
 
-@property (nonatomic,retain) IBOutlet UIView *picContainer;//图片父view
+//@property (nonatomic,retain) IBOutlet UIView *picContainer;//图片父view
+@property (nonatomic,retain) IBOutlet UIScrollView *picScrollView;
 
 @property (nonatomic,retain) NSString *pid;
 

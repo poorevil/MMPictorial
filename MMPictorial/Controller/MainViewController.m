@@ -121,7 +121,7 @@
 -(void)showAutoPlay
 {
     [self.cycleScrollView showNextPage];
-    [self performSelector:@selector(showAutoPlay) withObject:nil afterDelay:5];
+    [self performSelector:@selector(showAutoPlay) withObject:nil afterDelay:10];
 }
 
 -(void)adImageViewTapAction:(UIGestureRecognizer *)gesture

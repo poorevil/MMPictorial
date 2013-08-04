@@ -46,10 +46,18 @@
     
     self.imageView.imageURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@_220x10000.jpg",pdm.picUrl]];
     self.imageView.clipsToBounds = YES;
+    
+    //等比缩放相应尺寸
+    int destHight = 220;
+    
+    if (pdm.width!=0) {
+        destHight = (CGFloat)self.imageView.frame.size.width / pdm.width * pdm.height;
+    }
+    
     self.imageView.frame = CGRectMake(5
                                       , 5
                                       , self.imageView.frame.size.width
-                                      , pdm.height);
+                                      , destHight);
     
     //点击事件
     UITapGestureRecognizer *singleTap =[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(onTileTaped:)];

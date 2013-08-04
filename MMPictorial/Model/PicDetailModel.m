@@ -42,6 +42,8 @@
     
     self.taokeUrl = nil;
     
+    self.paginationModel = nil;
+    
     [super dealloc];
 }
 @end

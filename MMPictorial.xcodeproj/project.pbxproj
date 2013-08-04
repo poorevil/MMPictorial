@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4E032E46172579E70044F8F4 /* PaginationModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E032E45172579E70044F8F4 /* PaginationModel.m */; };
+		4E032E49172587BB0044F8F4 /* PicDetailAlbumPaginationInterface.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E032E48172587BB0044F8F4 /* PicDetailAlbumPaginationInterface.m */; };
+		4E032E4C172637650044F8F4 /* PicDetailAlbumView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E032E4B172637650044F8F4 /* PicDetailAlbumView.m */; };
+		4E032E4E172637760044F8F4 /* PicDetailAlbumView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4E032E4D172637760044F8F4 /* PicDetailAlbumView.xib */; };
 		4E98ABAF1723013400CE553B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E98ABAE1723013400CE553B /* UIKit.framework */; };
 		4E98ABB11723013400CE553B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E98ABB01723013400CE553B /* Foundation.framework */; };
 		4E98ABB31723013400CE553B /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E98ABB21723013400CE553B /* CoreGraphics.framework */; };
@@ -155,6 +159,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4E032E44172579E70044F8F4 /* PaginationModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaginationModel.h; sourceTree = "<group>"; };
+		4E032E45172579E70044F8F4 /* PaginationModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaginationModel.m; sourceTree = "<group>"; };
+		4E032E47172587BB0044F8F4 /* PicDetailAlbumPaginationInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PicDetailAlbumPaginationInterface.h; sourceTree = "<group>"; };
+		4E032E48172587BB0044F8F4 /* PicDetailAlbumPaginationInterface.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PicDetailAlbumPaginationInterface.m; sourceTree = "<group>"; };
+		4E032E4A172637650044F8F4 /* PicDetailAlbumView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PicDetailAlbumView.h; sourceTree = "<group>"; };
+		4E032E4B172637650044F8F4 /* PicDetailAlbumView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PicDetailAlbumView.m; sourceTree = "<group>"; };
+		4E032E4D172637760044F8F4 /* PicDetailAlbumView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PicDetailAlbumView.xib; sourceTree = "<group>"; };
 		4E98ABAB1723013400CE553B /* MMPictorial.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MMPictorial.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4E98ABAE1723013400CE553B /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		4E98ABB01723013400CE553B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -524,6 +535,8 @@
 				4E98AD57172301D400CE553B /* MainPageInterface.m */,
 				4E98AD58172301D400CE553B /* PicDetailInterface.h */,
 				4E98AD59172301D400CE553B /* PicDetailInterface.m */,
+				4E032E47172587BB0044F8F4 /* PicDetailAlbumPaginationInterface.h */,
+				4E032E48172587BB0044F8F4 /* PicDetailAlbumPaginationInterface.m */,
 				4E98AD5A172301D400CE553B /* PicWaterflowInterface.h */,
 				4E98AD5B172301D400CE553B /* PicWaterflowInterface.m */,
 				4E98AD5C172301D400CE553B /* TaokeItemDetailInterface.h */,
@@ -543,6 +556,8 @@
 				4E98AD64172301D400CE553B /* MySingleton.m */,
 				4E98AD65172301D400CE553B /* PicDetailModel.h */,
 				4E98AD66172301D400CE553B /* PicDetailModel.m */,
+				4E032E44172579E70044F8F4 /* PaginationModel.h */,
+				4E032E45172579E70044F8F4 /* PaginationModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -929,6 +944,9 @@
 				4E98AE34172301D500CE553B /* RecommendAlbumView.h */,
 				4E98AE35172301D500CE553B /* RecommendAlbumView.m */,
 				4E98AE36172301D500CE553B /* RecommendAlbumView.xib */,
+				4E032E4A172637650044F8F4 /* PicDetailAlbumView.h */,
+				4E032E4B172637650044F8F4 /* PicDetailAlbumView.m */,
+				4E032E4D172637760044F8F4 /* PicDetailAlbumView.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1036,6 +1054,7 @@
 				4E98AEDA1723A60300CE553B /* icon.png in Resources */,
 				4E98AEDB1723A60300CE553B /* icon@2x.png in Resources */,
 				4E98AEDC1723A60300CE553B /* iTunesArtwork in Resources */,
+				4E032E4E172637760044F8F4 /* PicDetailAlbumView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1126,6 +1145,9 @@
 				4E98AEB1172301D500CE553B /* PicWaterflowTileView.m in Sources */,
 				4E98AEB3172301D500CE553B /* RecommendAlbumsView.m in Sources */,
 				4E98AEB5172301D500CE553B /* RecommendAlbumView.m in Sources */,
+				4E032E46172579E70044F8F4 /* PaginationModel.m in Sources */,
+				4E032E49172587BB0044F8F4 /* PicDetailAlbumPaginationInterface.m in Sources */,
+				4E032E4C172637650044F8F4 /* PicDetailAlbumView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
