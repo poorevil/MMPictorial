@@ -61,14 +61,15 @@
         NSDateFormatter * dateFormatter = [[[NSDateFormatter alloc] init]autorelease];
         [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
         NSDate *date = [NSDate date];
-        NSString * timestamp = @"2012-09-02 23:55:55";//[dateFormatter stringFromDate:date];
-//        [resultUrl appendString:timestamp];
+        NSString * timestamp = [dateFormatter stringFromDate:date];//@"2012-09-02 23:55:55";//
+
 
         //拼装http方式固定参数
-        NSString *tmpUrl = [NSString stringWithFormat:@"%@&v=2.0&format=json&sign_method=md5&app_key=%@&timestamp=%@"
+        NSString *tmpUrl = [NSString stringWithFormat:@"%@&v=2.0&format=json&sign_method=md5&app_key=%@&timestamp=%@&nick=%@&is_mobile=true"
                             ,orignUrl
                             ,[MySingleton sharedSingleton].appKey
-                            ,timestamp];
+                            ,timestamp
+                            ,[MySingleton sharedSingleton].taokeName];
         
         
         

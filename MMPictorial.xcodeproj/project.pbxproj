@@ -11,6 +11,8 @@
 		4E032E49172587BB0044F8F4 /* PicDetailAlbumPaginationInterface.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E032E48172587BB0044F8F4 /* PicDetailAlbumPaginationInterface.m */; };
 		4E032E4C172637650044F8F4 /* PicDetailAlbumView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E032E4B172637650044F8F4 /* PicDetailAlbumView.m */; };
 		4E032E4E172637760044F8F4 /* PicDetailAlbumView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4E032E4D172637760044F8F4 /* PicDetailAlbumView.xib */; };
+		4E95AB1F17AF85FE0062D9DE /* RuntimeParamInterface.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E95AB1E17AF85FD0062D9DE /* RuntimeParamInterface.m */; };
+		4E95AB2617AFB0860062D9DE /* libMobClickLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E95AB2417AFB0860062D9DE /* libMobClickLibrary.a */; };
 		4E98ABAF1723013400CE553B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E98ABAE1723013400CE553B /* UIKit.framework */; };
 		4E98ABB11723013400CE553B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E98ABB01723013400CE553B /* Foundation.framework */; };
 		4E98ABB31723013400CE553B /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E98ABB21723013400CE553B /* CoreGraphics.framework */; };
@@ -52,7 +54,6 @@
 		4E98AE54172301D500CE553B /* home_btn_pressed_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E98AD72172301D400CE553B /* home_btn_pressed_bg.png */; };
 		4E98AE5B172301D500CE553B /* img_bg_2.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E98AD79172301D400CE553B /* img_bg_2.png */; };
 		4E98AE5D172301D500CE553B /* nav_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E98AD7B172301D400CE553B /* nav_bg.png */; };
-		4E98AE5E172301D500CE553B /* libMobClickLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E98AD7D172301D400CE553B /* libMobClickLibrary.a */; };
 		4E98AE5F172301D500CE553B /* ASIAuthenticationDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E98AD82172301D400CE553B /* ASIAuthenticationDialog.m */; };
 		4E98AE60172301D500CE553B /* ASIDataCompressor.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E98AD85172301D400CE553B /* ASIDataCompressor.m */; };
 		4E98AE61172301D500CE553B /* ASIDataDecompressor.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E98AD87172301D400CE553B /* ASIDataDecompressor.m */; };
@@ -166,6 +167,10 @@
 		4E032E4A172637650044F8F4 /* PicDetailAlbumView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PicDetailAlbumView.h; sourceTree = "<group>"; };
 		4E032E4B172637650044F8F4 /* PicDetailAlbumView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PicDetailAlbumView.m; sourceTree = "<group>"; };
 		4E032E4D172637760044F8F4 /* PicDetailAlbumView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PicDetailAlbumView.xib; sourceTree = "<group>"; };
+		4E95AB1D17AF85FD0062D9DE /* RuntimeParamInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RuntimeParamInterface.h; sourceTree = "<group>"; };
+		4E95AB1E17AF85FD0062D9DE /* RuntimeParamInterface.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RuntimeParamInterface.m; sourceTree = "<group>"; };
+		4E95AB2417AFB0860062D9DE /* libMobClickLibrary.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libMobClickLibrary.a; path = MMPictorial/libMobClickLibrary.a; sourceTree = SOURCE_ROOT; };
+		4E95AB2517AFB0860062D9DE /* MobClick.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MobClick.h; path = MMPictorial/MobClick.h; sourceTree = SOURCE_ROOT; };
 		4E98ABAB1723013400CE553B /* MMPictorial.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MMPictorial.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4E98ABAE1723013400CE553B /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		4E98ABB01723013400CE553B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -226,8 +231,6 @@
 		4E98AD72172301D400CE553B /* home_btn_pressed_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = home_btn_pressed_bg.png; sourceTree = "<group>"; };
 		4E98AD79172301D400CE553B /* img_bg_2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = img_bg_2.png; sourceTree = "<group>"; };
 		4E98AD7B172301D400CE553B /* nav_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = nav_bg.png; sourceTree = "<group>"; };
-		4E98AD7D172301D400CE553B /* libMobClickLibrary.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libMobClickLibrary.a; sourceTree = "<group>"; };
-		4E98AD7E172301D400CE553B /* MobClick.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MobClick.h; sourceTree = "<group>"; };
 		4E98AD81172301D400CE553B /* ASIAuthenticationDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIAuthenticationDialog.h; sourceTree = "<group>"; };
 		4E98AD82172301D400CE553B /* ASIAuthenticationDialog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASIAuthenticationDialog.m; sourceTree = "<group>"; };
 		4E98AD83172301D400CE553B /* ASICacheDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASICacheDelegate.h; sourceTree = "<group>"; };
@@ -421,8 +424,8 @@
 				4E98ABAF1723013400CE553B /* UIKit.framework in Frameworks */,
 				4E98ABB11723013400CE553B /* Foundation.framework in Frameworks */,
 				4E98ABB31723013400CE553B /* CoreGraphics.framework in Frameworks */,
-				4E98AE5E172301D500CE553B /* libMobClickLibrary.a in Frameworks */,
 				4E98AEA9172301D500CE553B /* libWeChatSDK_armv7_armv7s.a in Frameworks */,
+				4E95AB2617AFB0860062D9DE /* libMobClickLibrary.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -541,6 +544,8 @@
 				4E98AD5B172301D400CE553B /* PicWaterflowInterface.m */,
 				4E98AD5C172301D400CE553B /* TaokeItemDetailInterface.h */,
 				4E98AD5D172301D400CE553B /* TaokeItemDetailInterface.m */,
+				4E95AB1D17AF85FD0062D9DE /* RuntimeParamInterface.h */,
+				4E95AB1E17AF85FD0062D9DE /* RuntimeParamInterface.m */,
 			);
 			path = Interface;
 			sourceTree = "<group>";
@@ -592,8 +597,8 @@
 		4E98AD7C172301D400CE553B /* umeng */ = {
 			isa = PBXGroup;
 			children = (
-				4E98AD7D172301D400CE553B /* libMobClickLibrary.a */,
-				4E98AD7E172301D400CE553B /* MobClick.h */,
+				4E95AB2417AFB0860062D9DE /* libMobClickLibrary.a */,
+				4E95AB2517AFB0860062D9DE /* MobClick.h */,
 			);
 			path = umeng;
 			sourceTree = "<group>";
@@ -1148,6 +1153,7 @@
 				4E032E46172579E70044F8F4 /* PaginationModel.m in Sources */,
 				4E032E49172587BB0044F8F4 /* PicDetailAlbumPaginationInterface.m in Sources */,
 				4E032E4C172637650044F8F4 /* PicDetailAlbumView.m in Sources */,
+				4E95AB1F17AF85FE0062D9DE /* RuntimeParamInterface.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1232,6 +1238,7 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/MMPictorial/umeng\"",
 					"\"$(SRCROOT)/MMPictorial/Utility/weixinSDK\"",
+					"\"$(SRCROOT)/MMPictorial\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
@@ -1249,6 +1256,7 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/MMPictorial/umeng\"",
 					"\"$(SRCROOT)/MMPictorial/Utility/weixinSDK\"",
+					"\"$(SRCROOT)/MMPictorial\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;

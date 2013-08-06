@@ -508,7 +508,7 @@
     NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:self.pdm.pid,@"pid", nil];
     [MobClick event:@"buy_btn" attributes:dict];
     
-    NSURL *URL = [NSURL URLWithString:[NSString stringWithFormat:@"%@&ttid=400000_21125417@txx_iPhone_0.0.0"
+    NSURL *URL = [NSURL URLWithString:[NSString stringWithFormat:@"%@&ttid=400000_21589744@clfsjx_iPhone_1.0"
                                        , self.pdm.taokeUrl]];
     
     SVWebViewController *webViewController = [[[SVWebViewController alloc] initWithURL:URL

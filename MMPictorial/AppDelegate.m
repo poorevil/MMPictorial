@@ -12,11 +12,21 @@
 
 #import "MobClick.h"
 
+#import "RuntimeParamInterface.h"
+
+@interface AppDelegate()
+
+@property (nonatomic,retain) RuntimeParamInterface *interface ;
+
+@end
+
 @implementation AppDelegate
 
 - (void)dealloc
 {
     self.navController = nil;
+    
+    self.interface = nil;
     
     [_window release];
     [super dealloc];
@@ -81,6 +91,10 @@
         self.window.rootViewController = self.navController;
         
     }
+    
+    //获取运行时参数
+    self.interface = [[[RuntimeParamInterface alloc] init] autorelease];
+    [self.interface getParam];
     
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
